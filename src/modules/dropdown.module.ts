@@ -6,20 +6,30 @@ export class DropdownModule {
   protected container: HTMLElement;
   protected isOpen: boolean;
 
-  public constructor(input: DropdownModuleConstructor) {
-    this.id = input.id;
-    this.options = input.options;
-    this.defaultValue = input.defaultValue;
-    this.value = input.defaultValue;
+  public constructor(configs: DropdownModuleConstructor) {
+    this.id = configs.id;
+    this.options = configs.options;
+    this.defaultValue = configs.defaultValue;
+    this.value = configs.defaultValue;
     this.isOpen = false;
 
     let container = document.createElement("div");
+    configs.wrapper?.appendChild(container);
     this.container = container;
     this.container.id = this.id;
     this.createSelectOptionTags();
     this.createSelector();
     this.createOptions();
-    input.wrapper?.appendChild(this.container);
+
+    window.addEventListener("click", (e: any) => {
+      let optionsElement = this.container.querySelector(".custom-dropdown-options");
+      let selectorElement = this.container.querySelector(".custom-dropdown-selector");
+      if (optionsElement && selectorElement && !container.contains(e.target)) {
+        optionsElement.classList.remove("open");
+        selectorElement.classList.remove("open");
+        this.isOpen = false;
+      }
+    });
   }
 
   protected getWrapper() {
@@ -56,6 +66,7 @@ export class DropdownModule {
     let selectTag = document.createElement("div");
     wrapper.appendChild(selectTag);
     selectTag.classList.add(selectClass);
+    selectTag.addEventListener("click", () => this.onClickSelector());
     let selectedOption = this.options.find((option) => option.value === this.defaultValue);
     if (selectedOption) {
       selectTag.innerText = selectedOption.label;
@@ -72,6 +83,9 @@ export class DropdownModule {
     this.options.forEach((option) => {
       let optionTag = document.createElement("div");
       selectTag.appendChild(optionTag);
+      optionTag.addEventListener("click", (e: any) => {
+        this.onClickOption(e.target.getAttribute("data-value"));
+      });
       optionTag.setAttribute("data-value", option.value);
       optionTag.classList.add(optionClass);
       optionTag.innerText = option.label;
@@ -82,10 +96,36 @@ export class DropdownModule {
   }
 
   protected onClickSelector() {
-    if (this.isOpen) {
+    let optionsElement = this.container.querySelector(".custom-dropdown-options");
+    let selectorElement = this.container.querySelector(".custom-dropdown-selector");
+    if (optionsElement && selectorElement) {
+      if (this.isOpen) {
+        optionsElement.classList.remove("open");
+        selectorElement.classList.remove("open");
+        this.isOpen = false;
+      } else {
+        optionsElement.classList.add("open");
+        selectorElement.classList.add("open");
+        this.isOpen = true;
+      }
+    }
+  }
+
+  protected onClickOption(value: string) {
+    let optionsElement = this.container.querySelector(".custom-dropdown-options");
+    let selectorElement = this.container.querySelector(".custom-dropdown-selector");
+    let selectElement = this.container.querySelector("select.selector");
+    let optionData = this.options.find((opt) => opt.value === value);
+    if (selectElement && selectorElement && optionsElement && optionData) {
+      this.value = value;
+      selectorElement.innerHTML = optionData.label;
+      selectElement.querySelectorAll("option").forEach((option) => option.removeAttribute("selected"));
+      selectElement.querySelector(`option[value="${value}"]`)?.setAttribute("selected", "selected");
+      optionsElement.querySelectorAll(".custom-dropdown-options-item").forEach((item) => item.classList.remove("active"));
+      optionsElement.querySelector(`.custom-dropdown-options-item[data-value="${value}"]`)?.classList?.add("active");
+      optionsElement.classList.remove("open");
+      selectorElement.classList.remove("open");
       this.isOpen = false;
-    } else {
-      this.isOpen = true;
     }
   }
 }

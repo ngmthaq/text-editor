@@ -1,6 +1,6 @@
 $toolbar-bg-color: #edf2fa;
 $toolbar-button-hover-color: #d5e4fc;
-$toolbar-button-active-color: #b7d3ff;
+$toolbar-button-active-color: #c4dafd;
 
 .text-editor {
   & .editor-tool-bar {
@@ -29,17 +29,17 @@ $toolbar-button-active-color: #b7d3ff;
         border-radius: 4px;
         margin: 0 2px;
 
+        &.active {
+          background-color: $toolbar-button-hover-color;
+          box-shadow: 1px 1px 4px 0px gray;
+        }
+
         &:hover {
           background-color: $toolbar-button-hover-color;
         }
 
         &:active {
           background-color: $toolbar-button-active-color;
-        }
-
-        &.active {
-          background-color: $toolbar-button-hover-color !important;
-          box-shadow: 1px 1px 4px 0px gray;
         }
       }
     }
@@ -49,6 +49,7 @@ $toolbar-button-active-color: #b7d3ff;
       margin: 0 2px;
 
       &-selector {
+        user-select: none;
         position: relative;
         height: 32px;
         min-width: 120px;
@@ -62,13 +63,28 @@ $toolbar-button-active-color: #b7d3ff;
         box-shadow: none;
         transition: all 0.1s linear;
 
+        &::before {
+          content: "▼";
+          background-color: white;
+          position: absolute;
+          right: 8px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 10px;
+        }
+
         &.open {
           box-shadow: 1px 1px 4px 0px gray;
           border-color: transparent;
+
+          &::before {
+            content: "▲";
+          }
         }
       }
 
       &-options {
+        user-select: none;
         position: absolute;
         top: 32px;
         left: 0;
