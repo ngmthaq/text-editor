@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Editor</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="editor">
+        <div class="text-editor">
+          <div class="editor-tool-bar">
+            <div class="editor-tool-bar-wrapper">
+              <button class="editor-button undo-button">
+                <i class="bi bi-arrow-counterclockwise"></i>
+              </button>
+              <button class="editor-button redo-button">
+                <i class="bi bi-arrow-clockwise"></i>
+              </button>
+              <button class="editor-button print-button">
+                <i class="bi bi-printer"></i>
+              </button>
+              <div class="editor-dropdown zoom-dropdown" id="zoom-dropdown">
+                <div class="custom-dropdown">
+                  <select class="selector" style="display: none">
+                    <option value="1">100%</option>
+                    <option value="1">200%</option>
+                    <option value="1">300%</option>
+                    <option value="1">400%</option>
+                  </select>
+                  <div class="custom-dropdown-selector">100%</div>
+                  <div class="custom-dropdown-options">
+                    <div class="custom-dropdown-options-item active">100%</div>
+                    <div class="custom-dropdown-options-item">200%</div>
+                    <div class="custom-dropdown-options-item">300%</div>
+                    <div class="custom-dropdown-options-item">400%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="editor-tool-bar-wrapper">
+              <div class="editor-dropdown style-dropdown">
+                <select class="selector">
+                  <option value="1">Normal Text</option>
+                </select>
+              </div>
+              <div class="editor-dropdown font-family-dropdown">
+                <select class="selector">
+                  <option value="1">Arial</option>
+                </select>
+              </div>
+            </div>
+            <div class="editor-tool-bar-wrapper">
+              <button class="editor-button decrease-font-size-button">
+                <i class="bi bi-dash"></i>
+              </button>
+              <div class="editor-input font-size-input">
+                <input type="text" value="12" />
+              </div>
+              <button class="editor-button increase-font-size-button">
+                <i class="bi bi-plus"></i>
+              </button>
+            </div>
+            <div class="editor-tool-bar-wrapper">
+              <button class="editor-button bold-button active">
+                <i class="bi bi-type-bold"></i>
+              </button>
+              <button class="editor-button italic-button">
+                <i class="bi bi-type-italic"></i>
+              </button>
+              <button class="editor-button under-score-button">
+                <i class="bi bi-type-underline"></i>
+              </button>
+              <button class="editor-button highlight-button">
+                <i class="bi bi-brush"></i>
+              </button>
+            </div>
+            <div class="editor-tool-bar-wrapper">
+              <button class="editor-button link-button">
+                <i class="bi bi-link"></i>
+              </button>
+              <button class="editor-button image-button">
+                <i class="bi bi-card-image"></i>
+              </button>
+              <button class="editor-button table-button">
+                <i class="bi bi-table"></i>
+              </button>
+              <button class="editor-button emoji-button">
+                <i class="bi bi-emoji-smile"></i>
+              </button>
+            </div>
+            <div class="editor-tool-bar-wrapper">
+              <button class="editor-button align-button">
+                <i class="bi bi-justify"></i>
+              </button>
+              <button class="editor-button line-spacing-button">
+                <i class="bi bi-distribute-vertical"></i>
+              </button>
+              <button class="editor-button add-check-list-button">
+                <i class="bi bi-list-check"></i>
+              </button>
+              <button class="editor-button add-bullet-button">
+                <i class="bi bi-list-task"></i>
+              </button>
+              <button class="editor-button add-number-bullet-button">
+                <i class="bi bi-list-ol"></i>
+              </button>
+              <button class="editor-button outdent-button">
+                <i class="bi bi-text-indent-right"></i>
+              </button>
+              <button class="editor-button indent-button">
+                <i class="bi bi-text-indent-left"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./dist/index.js"></script>
+    <script></script>
+  </body>
+</html>
