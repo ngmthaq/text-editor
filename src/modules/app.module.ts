@@ -2,6 +2,7 @@ import { ButtonModule } from "./button.module";
 import { DropdownModule } from "./dropdown.module";
 import { EditorModule } from "./editor.module";
 import { InputModule } from "./input.module";
+import { TextAreaModule } from "./textarea.module";
 import { ToolbarModule } from "./toolbar.module";
 
 export class AppModule {
@@ -11,18 +12,25 @@ export class AppModule {
   protected toolbar: ToolbarModule;
   protected button: ButtonModule;
   protected input: InputModule;
+  protected textArea: TextAreaModule;
 
-  public constructor(id: string) {
+  public constructor(id: string, value: string = "") {
     this.id = id;
     let element = document.getElementById(id);
     if (!element) throw new Error("Cannot find id " + id);
     this.container = element;
     this.button = new ButtonModule();
     this.input = new InputModule();
+    this.textArea = new TextAreaModule();
     this.textEditor = new EditorModule(this.container);
     this.toolbar = new ToolbarModule(this.textEditor.getEditorElement());
     this.createToolbarWrapper();
     this.createToolbarItems();
+    this.textArea.createTextArea({
+      id: this.id + "_text_area",
+      defaultValue: value,
+      wrapper: this.textEditor.getEditorElement(),
+    });
   }
 
   protected createToolbarWrapper() {
